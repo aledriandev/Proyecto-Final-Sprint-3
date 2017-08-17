@@ -1,3 +1,77 @@
+var start = document.getElementById('start-button');
+var menu = document.getElementById('menu');
+var level_1 = document.getElementById('level-1');
+var tableros = document.createElement('div');
+level_1.appendChild(tableros);
+mapa=[  "*************************************************",
+		"*_______________________________________________*",
+		"*_______________________________________________*",
+		"*______**o________***________________**W________*",
+		"*_________________***_________________*_________*",
+		"*_________________*______________*______________*",
+		"*_________________*_____________________*_______*",
+		"*____*__*_____________________*___*_____*_______*",
+		"*_____*_*____________________****_*_____________*",
+		"*_____*_________________________________*_______*",
+		"*______________________________________**_______*",
+		"*________________________**____________**_______*",
+		"*_________________________*_____________________*",
+		"*_____________**_*_______***____________________*",
+		"*_____________***_______________________________*",
+		"*_____________**__________________**____________*",
+		"*______**_________________________**____________*",
+		"*______**_________________________*_____________*",
+		"*________*____________**________________________*",
+		"*____________________***________________________*",
+		"*___________________*_**________________________*",
+		"*_______________________________________________*",
+
+		"*************************************************"];
+function mapaGame(){
+	var arrayMapa = [];
+	for (var i = 0; i < mapa.length; i++) {
+	  for (var j = 0; j < mapa[i].length; j++) {
+	    var M= mapa[i].split("");
+	  }
+	  arrayMapa.push(M);
+	}
+
+	var n = mapa.length;
+	var m = mapa[0].length;
+
+	var tabla = document.createElement('table');
+	tabla.border = "0";
+	for (var i = 0; i < n; i++) {
+	  var fila = document.createElement('tr');
+	  for (var j = 0; j < m; j++) {
+	    var celda = document.createElement('td');
+	    if (mapa[i][j] == "*") {
+	      celda.setAttribute('class', 'pared');
+	    }else if(mapa[i][j] == "o") {
+	      celda.setAttribute('class','inicio')
+	      var x = i;
+	      var y = j;
+	    }else if(mapa[i][j] == "W") {
+	      celda.setAttribute('class','final')
+	    }else{
+	      celda.setAttribute('class','blanco');
+	    }
+	    fila.appendChild(celda);
+	    arrayMapa[i][j] = celda;
+	  }
+	  tabla.appendChild(fila);
+	}
+	tableros.appendChild(tabla);
+}
+
+start.addEventListener('click',play);
+
+function play(){
+	menu.style.display = "none";
+	mapaGame();
+}
+
+/*
 class Taxi{
 	constructor(x,y){
 		this.posicion_x = parseInt(x);
@@ -94,3 +168,5 @@ document.getElementById("start-button").addEventListener("click", function(e){
 	var y = document.getElementById("coord_y").value;	
 	controls(x,y);
 });
+
+*/

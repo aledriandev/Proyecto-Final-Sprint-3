@@ -6,6 +6,10 @@ Colors:
 #75726C;
 #EDE9E2
 */
+*{
+	margin: 0;
+	padding: 0;
+}
 body{
 	font-family: 'Raleway', sans-serif;
 }
@@ -74,11 +78,12 @@ nav{
 	left: 0;
 	
 }
-a.block{
+button.block{
 	display: block;
 	border-radius: 15px;
 	margin: 5px 0;
 }
+
 .h2-play{
 	background-color: #EDE9E2;
 	padding: 20px;
@@ -122,4 +127,33 @@ a.block{
 
 .page-footer{
 	background-color: #75726C;
+}
+
+/*PROPIEDADES MAPA*/
+td {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 0;
+}
+
+table{
+  border-spacing: 0px;
+ 
+}
+
+.pared{
+  background-color: black;
+}
+
+.inicio{
+  background-color: red;
+}
+
+.final{
+	background-color: green;
+}
+
+.blanco{
+  background-color: blue;
 }
