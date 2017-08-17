@@ -27,7 +27,7 @@ mapa=[  "*************************************************",
 		"*_______________________________________________*",
 
 		"*************************************************"];
-function mapaGame(){
+
 	var arrayMapa = [];
 	for (var i = 0; i < mapa.length; i++) {
 	  for (var j = 0; j < mapa[i].length; j++) {
@@ -62,13 +62,64 @@ function mapaGame(){
 	  tabla.appendChild(fila);
 	}
 	tableros.appendChild(tabla);
-}
 
 start.addEventListener('click',play);
+tableros.style.display = "none";
 
 function play(){
 	menu.style.display = "none";
-	mapaGame();
+	tableros.style.display = "block";
+}
+
+
+//keycode de las teclas
+var teclas = {
+  UP: 38,
+  DOWN: 40,
+  LEFT: 37,
+  RIGHT: 39
+};
+
+//evento 
+document.addEventListener("keydown", movimiento);
+
+
+//variables constantes
+
+
+function mover(a,b){
+  while(true){
+    if (mapa[x+a][y+b]=="_" || mapa[x+a][y+b]=="W"){
+      arrayMapa[x+a][y+b].style.backgroundColor = 'red';
+      arrayMapa[x][y].style.backgroundColor = 'white';
+
+      if( mapa[x+a][y+b]=="W" ){
+        alert("Ganaste...!");
+      }
+      x=x+a;
+      y=y+b;
+    }
+    break;
+  }
+}
+
+function movimiento(evento)
+{
+  switch(evento.keyCode)
+      {
+    case teclas.UP:
+      mover(-1, 0);
+      break;
+    case teclas.DOWN:
+      mover(1, 0);
+      break;
+    case teclas.LEFT:
+      mover(0, -1);
+      break;
+    case teclas.RIGHT:
+      mover(0, 1);
+      break;
+  }
 }
 
 /*

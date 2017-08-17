@@ -95,10 +95,10 @@ button.block{
 	margin-bottom: 80px;
 }
 
-.fila{
+.level{
 
 }
-.fila:before, .fila:after{
+.level:before, .level:after{
 	content: "";
 	display: block;
 	clear: both;
@@ -155,5 +155,5 @@ table{
 }
 
 .blanco{
-  background-color: blue;
+  background-color: white;
 }
