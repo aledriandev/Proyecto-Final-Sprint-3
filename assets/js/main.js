@@ -89,9 +89,9 @@ document.addEventListener("keydown", movimiento);
 
 function mover(a,b){
   while(true){
-    if (mapa[x+a][y+b]=="_" || mapa[x+a][y+b]=="W"){
-      arrayMapa[x+a][y+b].style.backgroundColor = 'red';
-      arrayMapa[x][y].style.backgroundColor = 'white';
+    if (mapa[x+a][y+b]=="_" || mapa[x+a][y+b]=="W" || mapa[x+a][y+b]=="o"){
+      arrayMapa[x+a][y+b].style.backgroundImage = "url(assets/img/pelota.png)";
+      arrayMapa[x][y].style.background = 'none';
 
       if( mapa[x+a][y+b]=="W" ){
         alert("Ganaste...!");
@@ -105,22 +105,33 @@ function mover(a,b){
 
 function movimiento(evento)
 {
+	evento.preventDefault();
   switch(evento.keyCode)
       {
     case teclas.UP:
-      mover(-1, 0);
-      break;
+    	while(mapa[x-1][y] == "_" || mapa[x-1][y]=="W" || mapa[x-1][y]=="o"){
+      		mover(-1, 0);	
+    	}
+        break;
     case teclas.DOWN:
-      mover(1, 0);
-      break;
+    	while(mapa[x+1][y] == "_" || mapa[x+1][y] == "o"){
+    	  	mover(1, 0);	
+    	}
+        break;
     case teclas.LEFT:
-      mover(0, -1);
-      break;
+    	while(mapa[x][y-1] == "_"){
+    		mover(0, -1);		
+    	}  
+        break;
     case teclas.RIGHT:
-      mover(0, 1);
-      break;
-  }
+    	while(mapa[x][y+1] == "_"){
+      		mover(0, 1);
+    	}
+      	break;
+ 	}
 }
+
+
 
 /*
 class Taxi{

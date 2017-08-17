@@ -139,7 +139,7 @@ td {
 
 table{
   border-spacing: 0px;
- 
+  height: 300px;
 }
 
 .pared{
@@ -147,7 +147,10 @@ table{
 }
 
 .inicio{
-  background-color: red;
+  /*background-color: red;*/
+  background-image: url(../img/pelota.png);
+  background-size: 100%;
+
 }
 
 .final{
