@@ -143,7 +143,7 @@ table{
 }
 
 .pared{
-  background-color: black;
+  background-color: #b2860e;
 }
 
 .inicio{
@@ -159,4 +159,8 @@ table{
 
 .blanco{
   background-color: white;
+}
+
+.muerte{
+	background-color: black;
 }
