@@ -2,32 +2,170 @@ var start = document.getElementById('start-button');
 var menu = document.getElementById('menu');
 var level_1 = document.getElementById('level-1');
 var tableros = document.createElement('div');
+var x; //Posicion actual x
+var y; //Posicion actual y
+var filas; // filas del mapa
+var columnas; // columnas del mapa
+var arrayMapa = [];
+var tabla;
+var level = 0; //contador de niveles, para que cambie de mapa
 level_1.appendChild(tableros);
-mapa=[  "+++++++++++++++++++++++++++++++++++++++++++++++++",
-		"+_______________________________________________+",
-		"+_______________________________________________+",
-		"+______**o________***________________**W________+",
-		"+_________________***_________________*_________+",
-		"+_________________*______________*______________+",
-		"+_________________*_____________________*_______+",
-		"+____*__*_____________________*___*_____*_______+",
-		"+_____*_*____________________****_*_____________+",
-		"+_____*_________________________________*_______+",
-		"+______________________________________**_______+",
-		"+________________________**____________**_______+",
-		"+_________________________*_____________________+",
-		"+_____________**_*_______***____________________+",
-		"+_____________***_______________________________+",
-		"+_____________**__________________**____________+",
-		"+______**_________________________**____________+",
-		"+______**_________________________*_____________+",
-		"+________*____________**________________________+",
-		"+____________________***________________________+",
-		"+___________________*_**________________________+",
-		"+_______________________________________________+",
-		"+++++++++++++++++++++++++++++++++++++++++++++++++"];
 
-	var arrayMapa = [];
+var map1 = [" * * * * * * * * * * * * * * * * * * * * ",
+    " * *           * * *             * *   * ",
+    " * *             W                 *   * ",
+    " *                           *     *   * ",
+    " *         *                       *   * ",
+    " *   * * * *             *         *   * ",
+    " *     *     * *       *   *       *   * ",
+    " *   * I o   * *         *   * * * *   * ",
+    " *     *     * *   * *  **           I * ",
+    " *   *          *        *         * * * ",
+    " *           * ***   *   *     *   * * * ",
+    " *       *      *        * *       * * * ",
+    " *     * *             ***         * * * ",
+    " * *   *           *     *         *   * ",
+    " *     *   *      *      *     *       * ",
+    " * *        *     *      *         *   * ",
+    " * * * * * * * * * * * * * * * * * * * * "];
+var map2 = [" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ",
+    " * *                                 *             * * * * ",
+    " * *   *                             *       *       * * * ",
+    " *   *   *            *              *     * *     *     * ",
+    " *         *           * *           * * *       *   *   * ",
+    " *     * *       *           *       *   *     *     *   * ",
+    " *   *                       *       *   *   *       *   * ",
+    " * *                             *   *   I          W* * * ",
+    " * *              **     * *                             * ",
+    " * *             *     I           *                     * ",
+    " *               *   *         *                     *   * ",
+    " *   *   *     *       *   *                             * ",
+    " *     *                             *                   * ",
+    " *       * *        *    *   *     * * *           *     * ",
+    " *       * *                         *     *       *     * ",
+    " * *             *       *       *                       * ",
+    " *       *     *       *   * *     *     *   * *         * ",
+    " *     *           *  o*   * *   *   *       * * *       * ",
+    " * * *      *          * *         *   *             * * * ",
+    " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "];
+var map3 = [" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * ",
+    " * * * * * * * * * * *                                           ",
+    " *       *  *  *       * *                                W*     ",
+    " *               *     * * *           *                   I     ",
+    " * *       *               * *                                   ",
+    " *    *    * *   I           * *         *   *                   ",
+    " *                   ****      * * * *   *     *         *       ",
+    " *         *                 *           *   *                   ",
+    " *       *                 *   *                                 ",
+    " *         *   *         *       *   *                           ",
+    " *             *         *                                       ",
+    " * *                ** *                                   *     ",
+    " *                **         * *                                 ",
+    " *  **   *   *  **                     * *                 * *   ",
+    " * *   *   *   *       * *                   * *           * *   ",
+    " *                                         *   *                 ",
+    " *               *     *               ***   * *                 ",
+    " *             *               *                                 ",
+    " *                       *         * *                           ",
+    " *o  *       *           *       * *                           * ",
+    " * * *           *                                         *     ",
+    " * * * *                                  *                *     ",
+    " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * "];
+var map4 = ["                                                                 ",
+    " *   o       * **  ** *                                  *****    ",
+    "    *                                                        *    ",
+    "    *           **                                           *    ",
+    "   ** **************         **             ****             *    ",
+    "   **          *           * *                              I*  * ",
+    "   **                                        *                    ",
+    "   *****************                         ****                 ",
+    "       *************                                              ",
+    "     ***************   *   W                                      ",
+    "            ** **      **  **                                     ",
+    "                      *    **                                     ",
+    "  *                  *******                                      ",
+    "   *****            **                                      W     ",
+    "   ***        **  **          *                            ***    ",
+    " **************************************************************** ",
+    "   I  **       *           * *                             ***    ",
+    " *            *                    ** * * * *       *      ***    ",
+    "               *        *                           *       *     ",
+    "    *                  ** *                         *    W        ",
+    " *  **                  *           *             *               ",
+    " *  ****                   *                 *    *          ***  ",
+    " *  *******                *                ****  **              ",
+    " *  ****                  **                ***   ****            ",
+    " *  ***       *         W                   *****     *******     ",
+    " **  *        **    *                        ***  ***********     ",
+    " **    **                                    ****************     ",
+    " **     ** *****       *  *****                 **                ",
+    "           *    * ** **    ****                   *               ",
+    " ** W****************    * ****                    *      ******* ",
+    "                                                                  "];
+var map5 = ["                                                                 ",
+    "                                W                     W          ",
+    "         *                                       *               ",
+    "   *                    *                            *           ",
+    "                                              *                  ",
+    "                                                  *        *     ",
+    "   *                         W            *         *            ",
+    "          *                                    *            *    ",
+    "                                      *                      *   ",
+    "                                           *                  I  ",
+    "         *                             *                       W ",
+    "  *            *       *                                         ",
+    "                                                                 ",
+    "                                                   *             ",
+    "    *               **W*************W********             *      ",
+    "          *         *                       *                    ",
+    "                    *   ******W**********   *                  * ",
+    "                    *   *               *   *       *            ",
+    "                    *   *   **********  *   W                    ",
+    "                    *   W   *        *  *   *                    ",
+    "         *          *   *   *        I  *   *                    ",
+    "   *                *   *   ******** *  *   *    W               ",
+    "                    *   *            *  W   *        *           ",
+    "                    *   **************  *   W               ***  ",
+    "          *         *                   *   *               **   ",
+    "     *              *********************   *        *           ",
+    "          *                                 *        *        W  ",
+    "  *                                         *        *        *  ",
+    "      *       ***W*********W****W****W*******        *******  *  ",
+    " o *                                                             ",
+    "                                                                 "] ;
+var map6 = [  "                                                 ",
+    "                                                 ",
+    "                                                 ",
+    "       **o        ***                **W         ",
+    "                  ***                 *          ",
+    "                  *              *               ",
+    "                  *                     *        ",
+    "     *  *                     *   *     *        ",
+    "      * *                    **** *              ",
+    "      *                                 *        ",
+    "                                       **        ",
+    "                         **            **        ",
+    "                          *                      ",
+    "              ** *       ***                     ",
+    "              ***                                ",
+    "              **                  **             ",
+    "       **                         **             ",
+    "       **                         *              ",
+    "         *            **                         ",
+    "                     ***                         ",
+    "                    * **                         ",
+    "                                                 ",
+    "                                                 "];
+
+var mapas = [map1, map2, map3, map4, map5, map6]; //contenedor de mapas
+var mapa = [];
+
+function selectLevel(){
+
+}
+
+function generaMapa(){
+	mapa = mapas[level];
 	for (var i = 0; i < mapa.length; i++) {
 	  for (var j = 0; j < mapa[i].length; j++) {
 	    var M= mapa[i].split("");
@@ -35,25 +173,23 @@ mapa=[  "+++++++++++++++++++++++++++++++++++++++++++++++++",
 	  arrayMapa.push(M);
 	}
 
-	var n = mapa.length;
-	var m = mapa[0].length;
+	filas = mapa.length;
+	columnas = mapa[0].length;
 
-	var tabla = document.createElement('table');
+	tabla = document.createElement('table');
 	tabla.border = "0";
-	for (var i = 0; i < n; i++) {
+	for (var i = 0; i < filas; i++) {
 	  var fila = document.createElement('tr');
-	  for (var j = 0; j < m; j++) {
+	  for (var j = 0; j < columnas; j++) {
 	    var celda = document.createElement('td');
 	    if (mapa[i][j] == "*") {
 	      celda.setAttribute('class', 'pared');
 	    }else if(mapa[i][j] == "o") {
 	      celda.setAttribute('class','inicio')
-	      var x = i;
-	      var y = j;
+	      x = i;
+	      y = j;
 	    }else if(mapa[i][j] == "W") {
 	      celda.setAttribute('class','final')
-	    }else if(mapa[i][j] == "+"){
-	    	celda.setAttribute('class','muerte')
 	    }else{
 	      celda.setAttribute('class','blanco');
 	    }
@@ -64,12 +200,13 @@ mapa=[  "+++++++++++++++++++++++++++++++++++++++++++++++++",
 	}
 	tableros.appendChild(tabla);
 
+}
+
 start.addEventListener('click',play);
-tableros.style.display = "none";
 
 function play(){
 	menu.style.display = "none";
-	tableros.style.display = "block";
+	generaMapa();
 }
 
 
@@ -84,60 +221,87 @@ var teclas = {
 //evento 
 document.addEventListener("keydown", movimiento);
 
-
-//variables constantes
-
-
 function mover(a,b){
-  while(true){
-    if (mapa[x+a][y+b]=="_" || mapa[x+a][y+b]=="W" || mapa[x+a][y+b]=="o" || mapa[x+a][x+b] == "+"){
+	
+    if (mapa[x+a][y+b] != "*" || x != 0 || y != 0 || x != filas -1 || y != columnas-1){
       arrayMapa[x+a][y+b].style.backgroundColor = "red";
       arrayMapa[x][y].style.background = 'none';
 
 	    if( mapa[x+a][y+b]=="W" ){
 	      alert("Ganaste...!");
+	      level++;
+	      tableros.removeChild(tabla);
+	      generaMapa();
 	    }
 	    x=x+a;
 	    y=y+b;
-	    if(mapa[x+a][x+b] == "+"){
-	    	alert("loser");
-	    }
     }
-    break;
-  }
+    if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
+    	tableros.removeChild(tabla);
+	    generaMapa();
+    }
 }
 
 
 function movimiento(evento)
 {
+
 	evento.preventDefault();
   switch(evento.keyCode)
       {
     case teclas.UP:
-    	while(mapa[x-1][y] == "_" || mapa[x-1][y]=="W" || mapa[x-1][y]=="o"){
-      	mover(-1, 0);	
+    	while(mapa[x-1][y] != "*"){
+      		mover(-1, 0);	
     	}
         break;
     case teclas.DOWN:
-    	while(mapa[x+1][y] == "_" || mapa[x+1][y] == "o"){
+    	while(mapa[x+1][y] != "*"){
     	  	mover(1, 0);	
     	}
         break;
     case teclas.LEFT:
-    	while(mapa[x][y-1] == "_"){
+    	while(mapa[x][y-1] != "*"){
     		mover(0, -1);		
     	}  
         break;
     case teclas.RIGHT:
-    	while(mapa[x][y+1] == "_"){
+    	while(mapa[x][y+1] != "*"){
       		mover(0, 1);
     	}
       	break;
+ 	
  	}
 }
 
+document.getElementById('level-button').addEventListener('click',levelMap);
+document.getElementById('btnLevel').addEventListener('click',seleccionNiveles);
+var espacioTablero = document.getElementById('tablero');
+var levelEs= document.createElement('div');
+	levelEs.setAttribute('id','espacioLevel');
+	espacioTablero.appendChild(levelEs);
+	levelEs.style.display = "none";
+var inputLevel = document.createElement('input');
+	inputLevel.setAttribute('id','inputEspacio');
+	inputLevel.setAttribute('placeholder',"1-5");
+	inputLevel.setAttribute('min',"0");
+	inputLevel.setAttribute('max',"5");
 
+	inputLevel.setAttribute('type','number');
+var botonLevel =  document.createElement('button');
+	botonLevel.setAttribute('id','btnLevel');
+	botonLevel.innerHTML = "Level"
+	levelEs.appendChild(inputLevel) ;
+	levelEs.appendChild(botonLevel);
 
+function levelMap(){
+	menu.style.display = "none";
+	levelEs.style.display = "block";
+}
+
+//funcionalidad del boton level
+function seleccionNiveles(){
+	var level = document.getElementById('inputEspacio').value;
+}
 /*
 class Taxi{
 	constructor(x,y){
