@@ -160,17 +160,14 @@ var map6 = [  "                                                 ",
 var mapas = [map1, map2, map3, map4, map5, map6]; //contenedor de mapas
 var mapa = [];
 
-function selectLevel(){
-
-}
-
+var chuckGif;
 function generaMapa(){
-	mapa = mapas[level];
-	for (var i = 0; i < mapa.length; i++) {
-	  for (var j = 0; j < mapa[i].length; j++) {
-	    var M= mapa[i].split("");
-	  }
-	  arrayMapa.push(M);
+  mapa = mapas[level];
+  for (var i = 0; i < mapa.length; i++) {
+	   for (var j = 0; j < mapa[i].length; j++) {
+	      var M= mapa[i].split("");
+	   }
+	   arrayMapa.push(M);
 	}
 
 	filas = mapa.length;
@@ -179,27 +176,34 @@ function generaMapa(){
 	tabla = document.createElement('table');
 	tabla.border = "0";
 	for (var i = 0; i < filas; i++) {
-	  var fila = document.createElement('tr');
-	  for (var j = 0; j < columnas; j++) {
-	    var celda = document.createElement('td');
-	    if (mapa[i][j] == "*") {
+	   var fila = document.createElement('tr');
+	   for (var j = 0; j < columnas; j++) {
+	     var celda = document.createElement('td');
+	      if (mapa[i][j] == "*") {
 	      celda.setAttribute('class', 'pared');
-	    }else if(mapa[i][j] == "o") {
+	     } else if(mapa[i][j] == "o") {
 	      celda.setAttribute('class','inicio')
+        chuckGif = document.createElement('img');
+            chuckGif.setAttribute("id",'img-chuck')
+        chuckGif.src = "assets/img/angry.gif"
+        celda.appendChild(chuckGif);
 	      x = i;
 	      y = j;
-	    }else if(mapa[i][j] == "W") {
+	   } else if(mapa[i][j] == "W") {
 	      celda.setAttribute('class','final')
-	    }else{
+        nest = document.createElement('img');
+            nest.setAttribute("id",'img-nest')
+        nest.src = "assets/img/nido.png"
+        celda.appendChild(nest);
+	   }else{
 	      celda.setAttribute('class','blanco');
-	    }
-	    fila.appendChild(celda);
-	    arrayMapa[i][j] = celda;
+	   }
+	   fila.appendChild(celda);
+	   arrayMapa[i][j] = celda;
 	  }
 	  tabla.appendChild(fila);
 	}
 	tableros.appendChild(tabla);
-
 }
 
 start.addEventListener('click',play);
@@ -219,91 +223,127 @@ var teclas = {
 };
 
 var t = null;
-//evento 
+
+//evento
 document.addEventListener("keydown", movimiento);
 
-function mover(a,b){
-	
-	if(mapa[x+a][y+b] != "*"){      	
-	    if ( x != 0 || y != 0 || x != filas -1 || y != columnas-1){
-	      arrayMapa[x+a][y+b].style.backgroundColor = "red";
-	      arrayMapa[x][y].style.background = 'none';
-
-		    if( mapa[x+a][y+b]=="W" ){
-		      alert("Ganaste...!");
-		      level++;
-		      tableros.removeChild(tabla);
-		      generaMapa();
-		    }
-		    x=x+a;
-		    y=y+b;
+function mover(a,b) {
+  if(mapa[x+a][y+b] != "*"){
+    if ( true){
+      arrayMapa[x][y].removeChild(chuckGif);
+      arrayMapa[x+a][y+b].appendChild(chuckGif);
+	    if( mapa[x+a][y+b]=="W" ){
+	      level++;
+		    tableros.removeChild(tabla);
+		    generaMapa();
+        clearTimeout(t);
+        return;
+		  }
+		  x=x+a;
+		  y=y+b;
 
 			t = setTimeout(function(){ mover(a, b) }, 150);
 	    }
-	    if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
-	        clearTimeout(t);
-
-	    	tableros.removeChild(tabla);
-		    generaMapa();
+      if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
+	       clearTimeout(t);
+	    	 tableros.removeChild(tabla);
+		     generaMapa();
 	    }
-
 	} else {
-		 clearTimeout(t);
+		  clearTimeout(t);
 	}
 }
 
 
-function movimiento(evento)
-{
+function movimiento(evento){
 
 	evento.preventDefault();
-	
-	var tt = setTimeout ( function () {
-	  switch(evento.keyCode)
-	      {
+	var tt = setTimeout ( function() {
+	  switch(evento.keyCode){
 	    case teclas.UP:
-	    	mover(-1, 0);	
-	    	
-	        break;
+	    	mover(-1, 0);
+	    break;
 	    case teclas.DOWN:
-	    	mover(1, 0);	
-	    	
-	        break;
+	    	mover(1, 0);
+	    break;
 	    case teclas.LEFT:
-	    	 mover(0, -1);		
-	    	  
-	        break;
+	    	 mover(0, -1);
+	    break;
 	    case teclas.RIGHT:
 	    	mover(0, 1);
-	    	
-	      	break;
+	    break;
 	 	}
-	}, 200);
+	}, 120);
 }
 
 
-
+/***************************** Boton levels *********************************/
 document.getElementById('level-button').addEventListener('click',levelMap);
+document.getElementById('instrucciones-button').addEventListener('click',instrucciones);
 //document.getElementById('btnLevel').addEventListener('click',seleccionNiveles);
+
 var espacioTablero = document.getElementById('tablero');
-var levelEs= document.createElement('div');
-	levelEs.setAttribute('id','espacioLevel');
-	espacioTablero.appendChild(levelEs);
-	levelEs.style.display = "none";
-var inputLevel = document.createElement('input');
-	inputLevel.setAttribute('id','inputEspacio');
-	inputLevel.setAttribute('placeholder',"1-5");
-	inputLevel.setAttribute('min',"0");
-	inputLevel.setAttribute('max',"5");
-
-	inputLevel.setAttribute('type','number');
-var botonLevel =  document.createElement('button');
-	botonLevel.setAttribute('id','btnLevel');
-	botonLevel.innerHTML = "Level"
-	levelEs.appendChild(inputLevel) ;
-	levelEs.appendChild(botonLevel);
-
+var levelEs;
 function levelMap(){
 	menu.style.display = "none";
-	levelEs.style.display = "block";
+		levelEs= document.createElement('div');
+		levelEs.setAttribute('id','espacioLevel');
+		levelEs.style.display = "block";
+	var inputLevel = document.createElement('input');
+		inputLevel.setAttribute('id','inputEspacio');
+		inputLevel.setAttribute('placeholder',"1-5");
+		inputLevel.setAttribute('min',"1");
+		inputLevel.setAttribute('max',"5");
+		inputLevel.setAttribute('type','number');
+	var inputImagen = document.createElement('img');
+		inputImagen.setAttribute('id','imgAdorno');
+		inputImagen.src = "assets/img/chuck.png"
+	var botonLevel =  document.createElement('button');
+		botonLevel.setAttribute('id','btnLevel');
+		botonLevel.innerHTML = "Level";
+	var botonCancel =  document.createElement('button');
+		botonCancel.setAttribute('id','btnCancel');
+		botonCancel.innerHTML = "Cancel";
+		botonCancel.addEventListener('click',backMenu);
+		levelEs.appendChild(inputLevel);
+		levelEs.appendChild(botonLevel);
+		levelEs.appendChild(botonCancel);
+		levelEs.appendChild(inputImagen);
+		espacioTablero.appendChild(levelEs);
 }
+ function backMenu() {
+ 	menu.style.display = "block";
+ 	espacioTablero.removeChild(levelEs);
+ }
+
+var instruccionesEspacio;
+
+function instrucciones(){
+	menu.style.display = "none";
+	instruccionesEspacio= document.createElement('div');
+	instruccionesEspacio.setAttribute('id','instEspacio');
+	instruccionesEspacio.style.display = "block";
+	var txtInst = document.createElement('p');
+		txtInst.setAttribute('id','txtP');
+	var textoContenido = document.createTextNode("RoadBlocks es un juego simple juego donde intentas anotar un gol con la pelota:Guía la pelota usando las flechas del teclado . La pelota continúa avanzando hasta que se detiene en una pared, pierdes si no encuentra un muro y la pelota se pierde.");
+		txtInst.appendChild(textoContenido);
+	var imgFlecha = document.createElement('img');
+		imgFlecha.setAttribute('id','imgArrow');
+		imgFlecha.addEventListener('click',regresarMenu);
+		imgFlecha.src = ('assets/img/flecha.png');
+	var imgBirds = document.createElement('img');
+		imgBirds.setAttribute('id','imgBirdsChuck');
+		imgBirds.src = ('assets/img/chucksFlying.png');
+		instruccionesEspacio.appendChild(imgBirds);
+		instruccionesEspacio.appendChild(imgFlecha);
+		instruccionesEspacio.appendChild(txtInst);
+		espacioTablero.appendChild(instruccionesEspacio);
+}
+function regresarMenu() {
+ 	menu.style.display = "block";
+ 	espacioTablero.removeChild(instruccionesEspacio);
+ }
+
+
+
+/***************************** Boton Instrucciones *********************************/

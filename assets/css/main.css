@@ -1,5 +1,5 @@
 /*
-Colors: 
+Colors:
 #E54E79;
 #E56385;
 #00B2A9;
@@ -76,7 +76,7 @@ nav{
 	height: 100%;
 	top: 0;
 	left: 0;
-	
+
 }
 button.block{
 	display: block;
@@ -109,7 +109,7 @@ button.block{
 	width: 10%;
 	height: 80px;
 }
-.empty{	
+.empty{
 	background-color: #75726C;
 }
 
@@ -118,7 +118,7 @@ button.block{
 	background-image: url(../img/car.png);
 	background-size: contain;
 	background-position: center 6px ;
-	background-repeat: no-repeat; 
+	background-repeat: no-repeat;
 }
 
 .visitada{
@@ -131,45 +131,114 @@ button.block{
 
 /*PROPIEDADES MAPA*/
 td {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   padding: 0;
-  border-radius: 0;
+  border-radius: 1px;
+	position: relative;
+	overflow: visible;
 }
 
 table{
   border-spacing: 0px;
-  height: 300px;
+	height: auto;
+	border: 2px solid black;
+	background-image: url(../img/fondo.png);
+	background-size: 100%;
+	filter: contrast(150%);
 }
 
 .pared{
-  background-color: #b2860e;
+  background-image: url(../img/tnt.png);
+   background-size: 100%;
 }
 
 .inicio{
-  /*background-color: red;*/
-  background-image: url(../img/pelota.png);
-  background-size: 100%;
+	/*background-color: red;*/
 
 }
 
 .final{
-	background-color: green;
+	/*background-color: green;*/
 }
 
 .blanco{
-  background-color: white;
+  background: none;
 }
 
 .muerte{
 	background-color: black;
 }
 
-/*css Haidy*/
+#img-chuck, #img-nest{
+	width: 60px;
+	height: 60px;
+	float: left;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	left: -18px;
+	z-index: 10000;
+}
+
+/* Boton level*/
+#inputEspacio {
+ width: 230px;
+	 height: 103px;
+	 font-size: 70px;
+	 position: relative;
+	 left: 185px;
+	 text-align: center;
+}
+
 #btnLevel {
-	width: 100px;
-    height: 35px;
-    position: absolute;
-    right: 40px;
-    bottom: 15px;
+ width: 100px;
+	 height: 46px;
+	 position: absolute;
+	 font-size: 30px;
+	 right: 45px;
+}
+
+#btnCancel {
+ width: 100px;
+	 height: 46px;
+	 font-size: 26px;
+	 position: absolute;
+	 right: 45px;
+	 bottom: 40px;
+}
+
+#imgAdorno{
+ width: 159px;
+	 height: 150px;
+	 position: absolute;
+	 top: 20px;
+	 left: 15px;
+}
+/* Boton instrucciones*/
+#instEspacio {
+ width: 360px;
+	 height: 200px;
+	 font-size: 20px;
+	 text-align: justify;
+}
+
+#imgArrow {
+ width: 90px;
+	 height: 70px;
+	 position: absolute;
+	 right: 60px;
+	 bottom: 35px;;
+}
+
+#imgBirdsChuck {
+ width: 120px;
+	 height: 145px;
+	 position: absolute;
+	 right: 65px;
+}
+
+#imgArrow:hover {
+ width: 95px;
+	 height: 75px;
 }
