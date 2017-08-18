@@ -106,7 +106,6 @@ function mover(a,b){
     break;
   }
 }
-var tiempo;
 
 
 function movimiento(evento)
@@ -116,7 +115,7 @@ function movimiento(evento)
       {
     case teclas.UP:
     	while(mapa[x-1][y] == "_" || mapa[x-1][y]=="W" || mapa[x-1][y]=="o"){
-      		setInterval(mover,500,-1, 0);	
+      	mover(-1, 0);	
     	}
         break;
     case teclas.DOWN:
